@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Linkedin, Download, ChevronDown } from "lucide-react";
+import { MapPin, Mail, Linkedin, Download, ChevronDown, Github } from "lucide-react";
 import profileImg from "@/assets/profile-placeholder.jpg";
 
 const roles = ["Full-Stack Developer", "Generative AI Enthusiast", "React Specialist", "Problem Solver"];
@@ -34,26 +34,44 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-accent/5 blur-3xl animate-float-slow" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-primary/5 animate-spin-slow" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-accent/5 animate-spin-slow" style={{ animationDirection: "reverse", animationDuration: "30s" }} />
+      {/* Animated background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.04, 0.08, 0.04] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-primary blur-[120px]"
+        />
+        <motion.div
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-foreground blur-[120px]"
+        />
+
+        {/* Orbiting rings */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-primary/5 animate-spin-slow" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-border/30 animate-spin-slow" style={{ animationDirection: "reverse", animationDuration: "30s" }} />
       </div>
 
       {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
-        <div
+      {[...Array(8)].map((_, i) => (
+        <motion.div
           key={i}
-          className="floating-particle animate-float"
+          className="absolute rounded-full bg-primary/20"
           style={{
-            width: `${Math.random() * 6 + 3}px`,
-            height: `${Math.random() * 6 + 3}px`,
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${i * 0.8}s`,
-            animationDuration: `${5 + i * 1.5}s`,
+            width: `${3 + (i % 4)}px`,
+            height: `${3 + (i % 4)}px`,
+            top: `${10 + i * 11}%`,
+            left: `${5 + i * 12}%`,
+          }}
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 4 + i,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.5,
           }}
         />
       ))}
@@ -62,53 +80,56 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Text content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex-1 text-center lg:text-left"
           >
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-primary font-mono text-sm mb-4 tracking-wider"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-primary font-mono text-sm mb-5 tracking-wider inline-flex items-center gap-2"
             >
-              {'<Hello World />'}
+              <span className="w-8 h-px bg-primary/50" />
+              {'Hello World'}
+              <span className="w-8 h-px bg-primary/50" />
             </motion.p>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1]">
               I'm{" "}
               <span className="text-gradient">Himanshu</span>
               <br />
               <span className="text-gradient">Kashyap</span>
             </h1>
 
-            <div className="h-10 md:h-12 mb-6 flex items-center justify-center lg:justify-start">
+            <div className="h-10 md:h-12 mb-8 flex items-center justify-center lg:justify-start">
               <span className="font-mono text-lg md:text-xl text-muted-foreground">
                 {displayed}
               </span>
               <span className="w-0.5 h-6 bg-primary ml-1 animate-blink inline-block" />
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 mb-8 justify-center lg:justify-start text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <MapPin size={14} className="text-primary" /> Aligarh, India
+            <div className="flex flex-wrap items-center gap-4 mb-10 justify-center lg:justify-start text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5 bg-muted/30 px-3 py-1.5 rounded-full">
+                <MapPin size={13} className="text-primary" /> Aligarh, India
               </span>
-              <span className="flex items-center gap-1.5">
-                <Mail size={14} className="text-primary" /> himanshu2001kashyap@gmail.com
+              <span className="flex items-center gap-1.5 bg-muted/30 px-3 py-1.5 rounded-full">
+                <Mail size={13} className="text-primary" /> himanshu2001kashyap@gmail.com
               </span>
             </div>
 
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               <a
                 href="#contact"
-                className="px-7 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5"
+                className="group px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.35)] relative overflow-hidden"
               >
-                Get in Touch
+                <span className="relative z-10">Get in Touch</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </a>
               <a
                 href="#"
-                className="px-7 py-3 rounded-full border border-primary/30 text-primary hover:bg-primary/10 transition-all duration-300 flex items-center gap-2 hover:-translate-y-0.5"
+                className="px-7 py-3.5 rounded-full border border-border text-foreground hover:border-primary/40 hover:text-primary transition-all duration-300 flex items-center gap-2 hover:-translate-y-1 hover:shadow-lg"
               >
                 <Download size={16} /> Resume
               </a>
@@ -116,7 +137,7 @@ const HeroSection = () => {
                 href="https://www.linkedin.com/in/himanshukashyap7906"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-3 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300"
+                className="px-4 py-3.5 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300 hover:-translate-y-1"
               >
                 <Linkedin size={18} />
               </a>
@@ -127,15 +148,24 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-primary/20 glow-border relative">
+            {/* Glow behind image */}
+            <div className="absolute inset-0 rounded-full bg-primary/10 blur-[60px] scale-110" />
+
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-primary/20 relative">
               <img src={profileImg} alt="Himanshu Kashyap" className="w-full h-full object-cover" />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/10 to-transparent" />
             </div>
-            {/* Orbiting dot */}
-            <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: "10s" }}>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-3 h-3 rounded-full bg-primary animate-glow-pulse" />
+
+            {/* Orbiting dots */}
+            <div className="absolute inset-[-20px] animate-orbit">
+              <div className="w-3 h-3 rounded-full bg-primary animate-glow-pulse" />
+            </div>
+            <div className="absolute inset-[-30px] animate-orbit-lg" style={{ animationDelay: "-6s" }}>
+              <div className="w-2 h-2 rounded-full bg-accent-foreground opacity-60" />
             </div>
           </motion.div>
         </div>
@@ -144,11 +174,13 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 2 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
         >
-          <span className="text-xs font-mono">Scroll down</span>
-          <ChevronDown size={16} className="animate-bounce" />
+          <span className="text-xs font-mono tracking-widest uppercase">Scroll</span>
+          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+            <ChevronDown size={16} />
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
@@ -45,52 +45,58 @@ const ProjectsSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-sm font-mono text-primary mb-2 tracking-wider">// Projects</h2>
+          <h2 className="text-sm font-mono text-primary mb-2 tracking-wider flex items-center gap-2">
+            <span className="w-6 h-px bg-primary/50" /> Projects
+          </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-12">
             Featured <span className="text-gradient">Work</span>
           </h3>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass rounded-2xl p-6 group hover:glow-border transition-all duration-500 hover:-translate-y-2 flex flex-col"
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="glass-card p-6 group flex flex-col relative overflow-hidden"
             >
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               {/* Project number */}
-              <span className="text-5xl font-bold text-primary/10 group-hover:text-primary/20 transition-colors font-mono mb-2">
+              <span className="text-5xl font-bold text-primary/5 group-hover:text-primary/15 transition-colors duration-500 font-mono mb-2 relative z-10">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              <h4 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+              <h4 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 flex items-center gap-2 relative z-10">
                 {project.title}
+                <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </h4>
 
-              <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1">
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1 relative z-10">
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-5">
+              <div className="flex flex-wrap gap-2 mb-5 relative z-10">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                    className="text-xs px-2.5 py-1 rounded-full bg-primary/5 text-primary border border-primary/15 group-hover:border-primary/30 transition-colors"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="flex gap-3">
-                <button className="text-xs px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5">
+              <div className="flex gap-2 relative z-10">
+                <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-muted/20">
                   <Github size={13} /> Code
                 </button>
-                <button className="text-xs px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5">
+                <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-primary/5">
                   <ExternalLink size={13} /> Demo
                 </button>
               </div>

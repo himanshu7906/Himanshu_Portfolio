@@ -57,7 +57,14 @@ const EducationSection = () => {
             </div>
             <div>
               <h4 className="font-semibold text-foreground group-hover:text-accent-foreground transition-colors">Publication</h4>
-              <p className="text-muted-foreground text-sm">Depression Detection Using Machine Learning</p>
+              <a 
+                href="https://www.jetir.org/papers/JETIR2501427.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground text-sm hover:text-accent-foreground transition-colors block"
+              >
+                Depression Detection Using Machine Learning
+              </a>
               <p className="text-xs text-accent-foreground/70 font-mono mt-1">Published in JETIR</p>
             </div>
           </motion.div>

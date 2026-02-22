@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Linkedin, Download, ChevronDown, Github } from "lucide-react";
+import { Download, Mail, MapPin, Linkedin, ChevronDown } from "lucide-react";
+import heroImage from "@/assets/portfimage-removebg-preview.png";
+import resumePdf from "@/assets/Himanshu_Kashyap_Resume.pdf";
 
 
 const roles = ["Full-Stack Developer", "Generative AI Enthusiast", "React Specialist", "Problem Solver"];
@@ -130,7 +132,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </a>
               <a
-                href="/Himanshu_Kashyap_Resume.pdf"
+                href={resumePdf}
                 download="Himanshu_Kashyap_Resume.pdf"
                 className="px-7 py-3.5 rounded-full border border-border text-foreground hover:border-primary/40 hover:text-primary transition-all duration-300 flex items-center gap-2 hover:-translate-y-1 hover:shadow-lg"
               >
@@ -158,7 +160,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 rounded-full bg-primary/20 blur-[80px] scale-110" />
 
             <div className="w-80 md:w-[500px] lg:w-[650px] relative z-10 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)]">
-              <img src="/portfimage-removebg-preview.png" alt="Coding Illustration" className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(var(--primary),0.3)] animate-float-slow" />
+              <img src={heroImage} alt="Coding Illustration" className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(var(--primary),0.3)] animate-float-slow" />
             </div>
           </motion.div>
         </div>

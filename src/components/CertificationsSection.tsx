@@ -32,16 +32,16 @@ const CertificationsSection = () => {
           </h3>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
           {certs.map((cert, i) => (
             <motion.div
               key={cert}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-card rounded-xl p-4 flex items-center gap-3 group"
+              className="glass-card rounded-xl p-6 min-h-[90px] flex items-center gap-4 group"
             >
-              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 flex-shrink-0">
                 <Award size={16} />
               </div>
               <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">{cert}</span>

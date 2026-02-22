@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Linkedin, Download, ChevronDown, Github } from "lucide-react";
-import profileImg from "@/assets/profile-placeholder.jpg";
+
 
 const roles = ["Full-Stack Developer", "Generative AI Enthusiast", "React Specialist", "Problem Solver"];
 
@@ -52,26 +52,28 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-border/30 animate-spin-slow" style={{ animationDirection: "reverse", animationDuration: "30s" }} />
       </div>
 
-      {/* Floating particles */}
-      {[...Array(8)].map((_, i) => (
+      {/* Floating particles & Bubbles */}
+      {[...Array(15)].map((_, i) => (
         <motion.div
-          key={i}
-          className="absolute rounded-full bg-primary/20"
+          key={`bubble-${i}`}
+          className="absolute rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm shadow-[0_0_15px_rgba(var(--primary),0.1)]"
           style={{
-            width: `${3 + (i % 4)}px`,
-            height: `${3 + (i % 4)}px`,
-            top: `${10 + i * 11}%`,
-            left: `${5 + i * 12}%`,
+            width: `${15 + (i * 11) % 45}px`,
+            height: `${15 + (i * 11) % 45}px`,
+            top: `${5 + (i * 19) % 90}%`,
+            left: `${5 + (i * 23) % 90}%`,
           }}
           animate={{
-            y: [0, -20, 0],
+            y: [0, -40 - (i % 30), 0],
+            x: [0, 15 - (i % 30), 0],
             opacity: [0.2, 0.6, 0.2],
+            scale: [1, 1.1 + (i % 4) * 0.05, 1],
           }}
           transition={{
-            duration: 4 + i,
+            duration: 8 + (i % 6) * 2,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: i * 0.5,
+            delay: i * 0.4,
           }}
         />
       ))}
@@ -128,7 +130,8 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </a>
               <a
-                href="#"
+                href="/Himanshu_Kashyap_Resume.pdf"
+                download="Himanshu_Kashyap_Resume.pdf"
                 className="px-7 py-3.5 rounded-full border border-border text-foreground hover:border-primary/40 hover:text-primary transition-all duration-300 flex items-center gap-2 hover:-translate-y-1 hover:shadow-lg"
               >
                 <Download size={16} /> Resume
@@ -149,23 +152,13 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
+            className="relative flex justify-center items-center"
           >
             {/* Glow behind image */}
-            <div className="absolute inset-0 rounded-full bg-primary/10 blur-[60px] scale-110" />
+            <div className="absolute inset-0 rounded-full bg-primary/20 blur-[80px] scale-110" />
 
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-primary/20 relative">
-              <img src={profileImg} alt="Himanshu Kashyap" className="w-full h-full object-cover" />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/10 to-transparent" />
-            </div>
-
-            {/* Orbiting dots */}
-            <div className="absolute inset-[-20px] animate-orbit">
-              <div className="w-3 h-3 rounded-full bg-primary animate-glow-pulse" />
-            </div>
-            <div className="absolute inset-[-30px] animate-orbit-lg" style={{ animationDelay: "-6s" }}>
-              <div className="w-2 h-2 rounded-full bg-accent-foreground opacity-60" />
+            <div className="w-80 md:w-[500px] lg:w-[650px] relative z-10 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)]">
+              <img src="/portfimage-removebg-preview.png" alt="Coding Illustration" className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(var(--primary),0.3)] animate-float-slow" />
             </div>
           </motion.div>
         </div>

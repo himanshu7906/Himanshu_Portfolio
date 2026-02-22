@@ -21,7 +21,7 @@ const skillCategories = [
   {
     title: "Tools & DevOps",
     icon: <Wrench size={20} />,
-    skills: ["Git", "Docker", "Linux", "Postman", "VS Code", "Jupyter"],
+    skills: ["Git", "Docker", "Linux", "Postman", "VS Code", "Jupyter" ,"Antigravity" , "Cursor"],
   },
   {
     title: "Domains",
@@ -50,14 +50,14 @@ const SkillsSection = () => {
           </h3>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((cat, i) => (
             <motion.div
               key={cat.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-card p-6 group"
+              className="glass-card p-8 min-h-[200px] group"
             >
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">

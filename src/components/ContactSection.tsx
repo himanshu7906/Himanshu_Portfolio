@@ -1,28 +1,61 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Send, Mail, Linkedin, MapPin, ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thanks for reaching out! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    
+    try {
+      const data = new FormData();
+      // NOTE: Replace 'YOUR_ACCESS_KEY_HERE' in your .env file with your free access key from https://web3forms.com/
+      data.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE"); 
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("message", formData.message);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Message sent successfully!", {
+          description: "Thanks for reaching out! I'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Failed to send message", {
+          description: result.message || "Please try again later.",
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred", {
+        description: "Please check your internet connection and try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="section-padding" ref={ref}>
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-12"
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-sm font-mono text-primary mb-2 tracking-wider">// Contact</h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
             Let's Build Something <span className="text-gradient">Amazing Together</span>
           </h3>
@@ -31,13 +64,13 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
           {/* Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-2 space-y-4"
+            className="md:col-span-5 lg:col-span-5 space-y-4"
           >
             {[
               { icon: <Mail size={18} />, label: "Email", value: "himanshu2001kashyap@gmail.com", href: "mailto:himanshu2001kashyap@gmail.com" },
@@ -69,7 +102,7 @@ const ContactSection = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             onSubmit={handleSubmit}
-            className="md:col-span-3 glass-card p-6 md:p-8 space-y-5"
+            className="md:col-span-7 lg:col-span-7 glass-card p-6 md:p-8 space-y-5 lg:ml-8"
           >
             <div>
               <label className="text-xs text-muted-foreground mb-1.5 block font-mono">Name</label>
@@ -106,10 +139,12 @@ const ContactSection = () => {
             </div>
             <button
               type="submit"
-              className="group w-full py-3.5 rounded-xl bg-primary text-primary-foreground font-medium transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.35)] relative overflow-hidden"
+              disabled={isSubmitting}
+              className={`group w-full py-3.5 rounded-xl bg-primary text-primary-foreground font-medium transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.35)] relative overflow-hidden ${isSubmitting ? "opacity-70 cursor-wait" : ""}`}
             >
               <span className="relative z-10 flex items-center gap-2">
-                <Send size={15} /> Send Message
+                <Send size={15} className={isSubmitting ? "animate-pulse" : ""} /> 
+                {isSubmitting ? "Sending..." : "Send Message"}
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </button>

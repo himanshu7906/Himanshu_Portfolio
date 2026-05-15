@@ -27,7 +27,7 @@ const AboutSection = () => {
             <Sparkles size={18} className="text-primary/40 absolute top-6 right-6" />
 
             <p className="text-muted-foreground leading-relaxed text-lg relative z-10">
-              MCA student and <span className="text-foreground font-medium">Full-Stack Developer</span> skilled in{" "}
+              MCA student and <span className="text-foreground font-medium">Software Engineer</span> skilled in{" "}
               <span className="text-primary">React.js</span>, <span className="text-primary">Node.js</span>,{" "}
               <span className="text-primary">Python</span>, API integration, AI/ML workflows, and data visualization.
               Certified in Full-Stack Development, Cybersecurity, and Generative AI. Passionate about building

@@ -5,7 +5,7 @@ import heroImage from "@/assets/portfimage-removebg-preview.png";
 import resumePdf from "@/assets/Himanshu_Kashyap_Resume.pdf";
 
 
-const roles = ["Full-Stack Developer", "Generative AI Enthusiast", "React Specialist", "Problem Solver"];
+const roles = ["Full-Stack Engineer", "Generative AI Enthusiast", "React Specialist", "Problem Solver"];
 
 const HeroSection = () => {
   const [roleIndex, setRoleIndex] = useState(0);

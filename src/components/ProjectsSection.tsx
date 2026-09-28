@@ -17,6 +17,12 @@ const projects: Project[] = [
     links: { code: "https://github.com/himanshu7906/Agent-Squad" },
   },
   {
+    title: "Scrollshot",
+    description: "Browser extension for Chrome, Edge and Firefox that captures a full scrolling page, the visible screen, a dragged area or a single element, and copies the image straight to your clipboard. Sticky headers don't repeat down long captures.",
+    tags: ["JavaScript", "Browser Extension", "Manifest V3", "Canvas API"],
+    links: {},
+  },
+  {
     title: "MediBot",
     description: "Intelligent medical chatbot using LangChain, Vector DB, and ChatGPT for accurate health information retrieval and conversational AI.",
     tags: ["LangChain", "VectorDB", "ChatGPT", "Python"],

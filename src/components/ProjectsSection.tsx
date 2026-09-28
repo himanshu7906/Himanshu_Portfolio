@@ -2,7 +2,20 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  links?: { code?: string; demo?: string };
+};
+
+const projects: Project[] = [
+  {
+    title: "Agent Squad",
+    description: "Team of 10 AI agents, each an expert in one area (architecture, backend, security, QA and more), installed as slash commands in Claude Code, Codex and Antigravity. Use them one at a time or as a team, with memory that carries across sessions.",
+    tags: ["AI Agents", "Multi-Agent", "Claude Code", "PowerShell"],
+    links: { code: "https://github.com/himanshu7906/Agent-Squad" },
+  },
   {
     title: "MediBot",
     description: "Intelligent medical chatbot using LangChain, Vector DB, and ChatGPT for accurate health information retrieval and conversational AI.",
@@ -92,14 +105,39 @@ const ProjectsSection = () => {
                 ))}
               </div>
 
-              <div className="flex gap-2 relative z-10">
-                <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-muted/20">
-                  <Github size={13} /> Code
-                </button>
-                <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-primary/5">
-                  <ExternalLink size={13} /> Demo
-                </button>
-              </div>
+              {project.links ? (
+                <div className="flex gap-2 relative z-10">
+                  {project.links.code && (
+                    <a
+                      href={project.links.code}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-muted/20"
+                    >
+                      <Github size={13} /> Code
+                    </a>
+                  )}
+                  {project.links.demo && (
+                    <a
+                      href={project.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-primary/5"
+                    >
+                      <ExternalLink size={13} /> Demo
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <div className="flex gap-2 relative z-10">
+                  <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-muted/20">
+                    <Github size={13} /> Code
+                  </button>
+                  <button className="text-xs px-4 py-2 rounded-full border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 flex items-center gap-1.5 hover:bg-primary/5">
+                    <ExternalLink size={13} /> Demo
+                  </button>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

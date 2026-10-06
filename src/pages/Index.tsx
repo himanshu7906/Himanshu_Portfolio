@@ -9,6 +9,7 @@ import CertificationsSection from "@/components/CertificationsSection";
 import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/effects/ScrollProgress";
 
 const Index = () => {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,7 @@ const Index = () => {
       <div className="noise-overlay" />
       {/* Cursor glow */}
       <div ref={glowRef} className="cursor-glow hidden md:block" />
+      <ScrollProgress />
 
       <div className="relative z-10">
         <Navbar />

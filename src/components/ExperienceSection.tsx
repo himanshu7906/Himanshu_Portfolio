@@ -1,17 +1,18 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
+import TiltCard from "@/components/effects/TiltCard";
 
 const experiences = [
   {
-    role: "Software Developer",
+    role: "Software Engineer",
     company: "Sofyrus Technologies",
     period: "May 2025 – Present",
     type: "Full-time",
     bullets: [
       "Working on Fintegra – a financial data integration platform",
       "React.js frontend development with modern UI patterns",
-      "API integration and GitHub CI/CD workflows",
+      "API integration and GitHub CI/CD workflows , deployment",
       "AI chatbot integration for enhanced user experience",
     ],
   },
@@ -58,7 +59,6 @@ const ExperienceSection = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Timeline line with animated gradient */}
           <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px">
             <div className="h-full bg-gradient-to-b from-primary/50 via-accent-foreground/20 to-transparent" />
           </div>
@@ -72,10 +72,8 @@ const ExperienceSection = () => {
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
                 className="relative pl-12 md:pl-20"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-2.5 md:left-6.5 top-8 w-3 h-3 rounded-full bg-primary animate-glow-pulse" />
-
-                <div className="glass-card p-6 md:p-8 group">
+                <div className="absolute left-2.5 md:left-6.5 top-8 w-3 h-3 rounded-full bg-primary animate-glow-pulse ring-4 ring-primary/10" />
+                <TiltCard max={5} lift={4} className="glass-card spotlight-card p-6 md:p-8 group">
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
                     <div>
                       <h4 className="text-lg font-semibold text-foreground flex items-center gap-2 group-hover:text-primary transition-colors">
@@ -89,14 +87,14 @@ const ExperienceSection = () => {
                     </span>
                   </div>
                   <ul className="space-y-2.5">
-                    {exp.bullets.map((b, j) => (
+                    {exp.bullets.map((bullet, j) => (
                       <li key={j} className="text-sm text-muted-foreground flex items-start gap-3">
                         <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 flex-shrink-0" />
-                        {b}
+                        {bullet}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
